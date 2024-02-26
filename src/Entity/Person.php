@@ -30,7 +30,7 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\ManyToOne(inversedBy: 'persons')]
-    private ?address $address = null;
+    private ?Address $address = null;
 
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'person')]
     private Collection $comments;
@@ -41,11 +41,22 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(inversedBy: 'person', cascade: ['persist', 'remove'])]
     private ?Cart $cart = null;
 
+    #[ORM\ManyToOne]
+    private ?Role $role = null;
+
+
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
+
+    
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->bookings = new ArrayCollection();
-        $this->role = new ArrayCollection();
     }
 
 
@@ -99,22 +110,7 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
-    }
-
-    /**
-     * @var list<string> The user roles
-     */
-    #[ORM\Column]
-    private array $roles = [];
-
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
-    private ?string $password = null;
-
-    #[ORM\ManyToOne]
-    private ?Role $role = null;
+    }   
 
 
     /**
@@ -124,7 +120,6 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
@@ -135,15 +130,6 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
 
     /**
      * @see PasswordAuthenticatedUserInterface
