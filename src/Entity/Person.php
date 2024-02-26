@@ -155,12 +155,12 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getAddress(): ?address
+    public function getAddress(): ?Address
     {
         return $this->address;
     }
 
-    public function setAddress(?address $address): static
+    public function setAddress(?Address $address): static
     {
         $this->address = $address;
 
