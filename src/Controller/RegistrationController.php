@@ -2,56 +2,26 @@
 
 namespace App\Controller;
 
-use App\Entity\Person;
+use App\Service\EntityService\PersonService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
-
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Serializer\SerializerInterface;
-
 use Symfony\Component\HttpFoundation\Request;
 
 class RegistrationController extends AbstractController
-
 {   
-    private $entityManager;
-    private $serializer;
-    private $userHashPassword;
-
-    public function __construct(
-        EntityManagerInterface $entityManager,
-        SerializerInterface $serializer,
-        UserPasswordHasherInterface $userHashPassword
-    ){
-        $this->entityManager = $entityManager;
-        $this->serializer = $serializer;
-        $this->userHashPassword = $userHashPassword;
-
-    }
+    private bool $isSaved;
+    private string $message;
 
     #[Route('/registration', name: 'app_registration')]
-    public function index(Request $request): JsonResponse
+    public function index(
+        PersonService $personService, 
+        Request $request): JsonResponse
     {
         // créer un service save person
-
-        $data = $request->getContent();
-        $person = $this->serializer->deserialize($data, Person::class, "json");
-
-        $person->setPassword(
-            $this->userHashPassword->hashPassword(
-                $person,
-                $person->getPassword()
-            )
-        );
-
-
-        $this->entityManager->persist($person);
-        $this->entityManager->flush();
+        $this->isSaved = $personService->save($request);
+        $this->message = $this->isSaved ? 'User registered successfully!' : 'error in the server';
         
-        return $this->json([
-            'message' => 'persist ok !'
-        ]);
+        return $this->json(['message' => $this->message]);
     }
 }
