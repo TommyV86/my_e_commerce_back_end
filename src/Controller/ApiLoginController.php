@@ -9,24 +9,36 @@ use Symfony\Component\Routing\Attribute\Route;
 
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\PersonRepository;
+
 
 
 class ApiLoginController extends AbstractController
 {
     private $serializer;
+    private $entityManager;
+
 
     public function __construct(
         SerializerInterface $serializer,
+        EntityManagerInterface $entityManager
     ){
         $this->serializer = $serializer;
+        $this->entityManager = $entityManager;
     }
 
     #[Route('/api/login', name: 'api_login', methods: ['POST'])]
-    public function index(Request $request): JsonResponse
+    public function index(Request $request, PersonRepository $persRepo): JsonResponse
     {
 
         $data = $request->getContent();
-        $person = $this->serializer->deserialize($data, Person::class, "json");
+        $emailIntoArray = json_decode($data, true);
+        $email = (string) $emailIntoArray['username'];
+
+        //faire une requete nommée dans le repo de person pour trouver l'user via l email
+        $person = $persRepo->findOneByEmail($email);
 
         if (null === $person) {
             return $this->json([
@@ -35,9 +47,9 @@ class ApiLoginController extends AbstractController
         }
 
         return $this->json([
-            'message' => 'Welcome !',
+            'message' => 'login ok ! ',
             'path' => 'path to define',
-            'user'  => $person->getEmail()
+            'person from db' => $person
         ]);
     }
 }

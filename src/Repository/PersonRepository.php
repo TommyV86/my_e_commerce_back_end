@@ -57,13 +57,13 @@ class PersonRepository extends ServiceEntityRepository implements PasswordUpgrad
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Person
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findOneByEmail($value): ?Person
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.email = :email')
+            ->setParameter('email', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
