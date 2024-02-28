@@ -36,13 +36,13 @@ class TypeProductRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?TypeProduct
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findOneByName($value): ?TypeProduct
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.name = :name')
+            ->setParameter('name', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

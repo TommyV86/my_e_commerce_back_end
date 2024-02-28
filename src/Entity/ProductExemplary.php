@@ -29,6 +29,9 @@ class ProductExemplary
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $imageName = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $price = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class ProductExemplary
     public function setImageName(?string $imageName): static
     {
         $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): static
+    {
+        $this->price = $price;
 
         return $this;
     }

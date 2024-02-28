@@ -21,7 +21,10 @@ class Product
     #[ORM\OneToMany(targetEntity: ProductExemplary::class, mappedBy: 'product')]
     private Collection $productExemplaries;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\Column(length: 700, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
     private ?TypeProduct $typeProduct = null;
 
     public function __construct()
@@ -72,6 +75,19 @@ class Product
                 $productExemplary->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }
