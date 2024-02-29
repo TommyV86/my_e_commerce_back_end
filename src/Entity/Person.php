@@ -38,9 +38,6 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'person')]
     private Collection $bookings;
 
-    #[ORM\OneToOne(inversedBy: 'person', cascade: ['persist', 'remove'])]
-    private ?Cart $cart = null;
-
     #[ORM\ManyToOne]
     private ?Role $role = null;
 
@@ -52,11 +49,15 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\OneToMany(targetEntity: Cart::class, mappedBy: 'person')]
+    private Collection $carts;
+
     
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
 
 
@@ -227,18 +228,6 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCart(): ?Cart
-    {
-        return $this->cart;
-    }
-
-    public function setCart(?Cart $cart): static
-    {
-        $this->cart = $cart;
-
-        return $this;
-    }
-
     public function setRole(?Role $role): static
     {
         $this->role = $role;
@@ -249,6 +238,36 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->getFirstname(); 
+    }
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): static
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts->add($cart);
+            $cart->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): static
+    {
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getPerson() === $this) {
+                $cart->setPerson(null);
+            }
+        }
+
+        return $this;
     }
 
 }

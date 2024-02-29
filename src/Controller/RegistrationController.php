@@ -13,7 +13,7 @@ class RegistrationController extends AbstractController
     private bool $isSaved;
     private string $message;
 
-    #[Route('/registration', name: 'app_registration')]
+    #[Route('/registration', name: 'app_registration', methods: ['POST'])]
     public function index(
         PersonService $personService, 
         Request $request): JsonResponse

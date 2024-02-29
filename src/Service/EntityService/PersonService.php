@@ -22,7 +22,7 @@ class PersonService {
     public function __construct(
         SerializerInterface $serializer,
         UserPasswordHasherInterface $userHashPassword,
-        EntityManagerInterface $entityManager,
+        EntityManagerInterface $entityManager
     ){
         $this->serializer = $serializer;
         $this->userHashPassword = $userHashPassword;

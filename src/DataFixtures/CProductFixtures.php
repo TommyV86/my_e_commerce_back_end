@@ -42,6 +42,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             Les bananes sont des fruits très généralement stériles issus de variétés 
             domestiquées. '
         );
+        $products->get(0)->setPrice(1.50);
 
         $products->get(1)->setName('poire');
         $products->get(1)->setTypeProduct($fruitType);
@@ -50,6 +51,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             produit par le poirier commun (Pyrus communis L.),
             arbre de la famille des Rosaceae'
         );
+        $products->get(1)->setPrice(1.10);
 
         $products->get(2)->setName('fraise');
         $products->get(2)->setTypeProduct($fruitType);
@@ -58,6 +60,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             espèces de plantes herbacées appartenant au genre Fragaria 
             (famille des Rosacées), dont plusieurs variétés sont cultivées. 
         ');
+        $products->get(2)->setPrice(1.20);
 
         $products->get(3)->setName('ananas');
         $products->get(3)->setTypeProduct($fruitType);
@@ -66,6 +69,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             originaire d\'Amérique du Sud, plus spécifiquement du Paraguay, 
             du nord-est de l`\'Argentine et sud du Brésil.'
         );
+        $products->get(3)->setPrice(3.50);
 
         $products->get(4)->setName('pomme');
         $products->get(4)->setTypeProduct($fruitType);
@@ -74,6 +78,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             Les pommiers sont cultivés à travers le monde et représentent
             l\'espèce la plus cultivée du genre Malus.'
         );
+        $products->get(4)->setPrice(2.30);
 
         $products->get(5)->setName('choux');
         $products->get(5)->setTypeProduct($legumeType);
@@ -84,6 +89,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             généralement à la famille des Brassicaceae,
             mais aussi à d\'autres familles botaniques.'
         );
+        $products->get(5)->setPrice(0.50);
 
         $products->get(6)->setName('carotte');
         $products->get(6)->setTypeProduct($legumeType);
@@ -92,6 +98,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             (aussi appelées Ombellifères), largement cultivée pour sa racine pivotante charnue,
             comestible, de couleur généralement orangée, consommée ...'
         );
+        $products->get(6)->setPrice(2.10);
 
         $products->get(7)->setName('aubergine');
         $products->get(7)->setTypeProduct($legumeType);
@@ -99,6 +106,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             'L\'Aubergine est une plante dicotylédone de la famille des Solanaceae,
             cultivée pour son légume-fruit.'
         );
+        $products->get(7)->setPrice(1.60);
 
         $products->get(8)->setName('courgette');
         $products->get(8)->setTypeProduct($legumeType);
@@ -107,6 +115,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             C\'est une plante herbacée, mais c\'est aussi le fruit comestible de la plante 
             du même nom. '
         );
+        $products->get(8)->setPrice(1.90);
 
         $products->get(9)->setName('poivron');
         $products->get(9)->setTypeProduct($legumeType);
@@ -114,6 +123,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             'Les poivrons sont des variétés de piments doux de l\'espèce Capsicum 
             annuum à très gros fruits. Le terme désigne à la fois le fruit et la plante.'
         );
+        $products->get(9)->setPrice(1);
 
         $products->get(10)->setName('boeuf bourgignon');
         $products->get(10)->setTypeProduct($viandeType);
@@ -122,6 +132,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             Il se savoure en toute saison et est synonyme de convivialité comme de tradition, 
             une recette qui vous réconfortera ...'
         );
+        $products->get(10)->setPrice(13.50);
 
         $products->get(11)->setName('poulet entier');
         $products->get(11)->setTypeProduct($viandeType);
@@ -129,6 +140,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             'Le poulet se cuisine en sauce, rôti, bouilli, découpé ou entier.
             Dans la longue liste des recettes de poulet, citons, entre autres.'
         );
+        $products->get(11)->setPrice(8.30);
 
         $products->get(12)->setName('filet de porc');
         $products->get(12)->setTypeProduct($viandeType);
@@ -137,6 +149,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             dans la région lombaire de l\'animal, dans la continuité du carré.
             Avec la pointe de filet, il constitue l\'extrémité de la longe de porc.'
         );
+        $products->get(12)->setPrice(11.45);
 
         $products->get(13)->setName('cuisses de poulet');
         $products->get(13)->setTypeProduct($viandeType);
@@ -146,6 +159,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             Tout d\'abord, il est simple à faire. En cas de manque d\'idées 
             pour le repas du soir ou du midi, vous allez pouvoir rapidement vous régaler.
         ');
+        $products->get(13)->setPrice(6.23);
         
         $products->get(14)->setName('saucisse');
         $products->get(14)->setTypeProduct($viandeType);
@@ -153,6 +167,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
             'Une saucisse est un produit de charcuterie 
             composée principalement de viande hachée mélangée à d\'autres ingrédients.'
         );
+        $products->get(14)->setPrice(9.13);
 
         foreach ($products as $prod) {
             $manager->persist($prod);

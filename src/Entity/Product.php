@@ -27,6 +27,9 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?TypeProduct $typeProduct = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $price = null;
+
     public function __construct()
     {
         $this->productExemplaries = new ArrayCollection();
@@ -100,6 +103,18 @@ class Product
     public function setTypeProduct(?TypeProduct $typeProduct): static
     {
         $this->typeProduct = $typeProduct;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): static
+    {
+        $this->price = $price;
 
         return $this;
     }
