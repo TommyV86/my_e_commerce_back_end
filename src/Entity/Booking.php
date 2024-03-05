@@ -20,8 +20,8 @@ class Booking
     #[ORM\ManyToOne(inversedBy: 'bookings')]
     private ?Person $person = null;
 
-    #[ORM\OneToOne(inversedBy: 'booking', cascade: ['persist', 'remove'])]
-    private ?Status $status = null;
+    #[ORM\Column(nullable: true)]
+    private ?bool $status = null;
 
     public function getId(): ?int
     {
@@ -52,12 +52,12 @@ class Booking
         return $this;
     }
 
-    public function getStatus(): ?Status
+    public function isStatus(): ?bool
     {
         return $this->status;
     }
 
-    public function setStatus(?Status $status): static
+    public function setStatus(?bool $status): static
     {
         $this->status = $status;
 

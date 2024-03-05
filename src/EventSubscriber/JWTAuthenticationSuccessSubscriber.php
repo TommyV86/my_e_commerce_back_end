@@ -15,7 +15,7 @@ class JWTAuthenticationSuccessSubscriber implements EventSubscriberInterface
     private $jwtManager;
 
     public function __construct(
-        UserProviderInterface $userProvider, // Assurez-vous que votre UserProvider est injecté ici
+        UserProviderInterface $userProvider, 
         JWTTokenManagerInterface $jwtManager
     ) {
         $this->userProvider = $userProvider;
@@ -32,15 +32,9 @@ class JWTAuthenticationSuccessSubscriber implements EventSubscriberInterface
     public function onAuthenticationSuccess(AuthenticationSuccessEvent $event)
     {
 
-        // $user = $event->getUser();
-
-        // if (!$user instanceof UserInterface) {
-        //     return;
-        // }
-
         $response = $event->getResponse();
         $data = $event->getData();
-        $jwt = $data['token']; // Assurez-vous que c'est la clé correcte pour votre token
+        $jwt = $data['token']; 
 
         // Créer un cookie sécurisé HttpOnly qui expire dans 3600 secondes (1 heure)
         $cookie = Cookie::create('BEARER')

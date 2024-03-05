@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Service\EntityService\CartService;
 use App\Repository\PersonRepository;
 
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CartController extends AbstractController
 {
@@ -17,7 +18,8 @@ class CartController extends AbstractController
     private bool $isSaved;
     private string $message;
 
-    #[Route('/create_cart', name: 'app_cart', methods: ['POST'])]
+    #[IsGranted('ROLE_USER', message: 'Vous n\'avez pas les droits suffisants')]
+    #[Route('/profile/create_cart', name: 'app_cart', methods: ['POST'])]
     public function index(
         Request $request, 
         CartService $cartService,
