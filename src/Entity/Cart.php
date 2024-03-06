@@ -26,6 +26,9 @@ class Cart
     #[ORM\ManyToOne(inversedBy: 'carts')]
     private ?Person $person = null;
 
+    #[ORM\OneToOne(mappedBy: 'cart', cascade: ['persist', 'remove'])]
+    private ?Booking $booking = null;
+
     public function __construct()
     {
         $this->productExemplaries = new ArrayCollection();
@@ -93,5 +96,27 @@ class Cart
     public function __toString()
     {
         return $this->getProductExemplaries(); 
+    }
+
+    public function getBooking(): ?Booking
+    {
+        return $this->booking;
+    }
+
+    public function setBooking(?Booking $booking): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($booking === null && $this->booking !== null) {
+            $this->booking->setCart(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($booking !== null && $booking->getCart() !== $this) {
+            $booking->setCart($this);
+        }
+
+        $this->booking = $booking;
+
+        return $this;
     }
 }

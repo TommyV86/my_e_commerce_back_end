@@ -49,17 +49,4 @@ class PersonService {
 
         return true;
     }
-
-    public function login(Request $request, PersonRepository $persRepo) : Person{
-
-        $data = $request->getContent();
-        $emailIntoArray = json_decode($data, true);
-        $email = (string) $emailIntoArray['username'];
-
-        $person = $persRepo->findOneByEmail($email);
-
-        if (null === $person) return null;
-
-        return $person;
-    }
 }

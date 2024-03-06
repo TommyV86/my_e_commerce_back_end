@@ -23,6 +23,9 @@ class Booking
     #[ORM\Column(nullable: true)]
     private ?bool $status = null;
 
+    #[ORM\OneToOne(inversedBy: 'booking', cascade: ['persist', 'remove'])]
+    private ?Cart $cart = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Booking
     public function setStatus(?bool $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCart(): ?Cart
+    {
+        return $this->cart;
+    }
+
+    public function setCart(?Cart $cart): static
+    {
+        $this->cart = $cart;
 
         return $this;
     }

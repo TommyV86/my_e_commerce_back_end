@@ -24,9 +24,7 @@ class ProductExemplaryService
         $this->entityManager = $entityManager;
     }
 
-    public function save(
-        Request $request, 
-        CartRepository $cartRepository) : bool {
+    public function save(Request $request) : bool {
 
         //deserialisation lorsque le front sera developpé
         //à réadapter pour le front, ajouter une vérification via le role
@@ -35,7 +33,7 @@ class ProductExemplaryService
         $datasIntoArray = json_decode($data, true);
 
         $idCart = (int) $datasIntoArray['id'];
-        $cart = $cartRepository->find($idCart);
+        $cart = $this->entityManager->getRepository(Cart::class)->find($idCart);
 
         $prodExs = new ArrayCollection();
 

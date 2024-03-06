@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -13,6 +14,7 @@ class Comment
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups("visible")]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $text = null;
 
