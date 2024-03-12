@@ -42,24 +42,15 @@ class ProductDto {
         return $this->productExemplariesDto;
     }
 
-    public function addProductExemplaryDto(ProductExemplaryDto $productExemplaryDto): static
+    
+    /**
+     * Set the value of productExemplariesDto
+     *
+     * @return  self
+     */ 
+    public function setProductExemplariesDto($productExemplariesDto)
     {
-        if (!$this->productExemplariesDto->contains($productExemplaryDto)) {
-            $this->productExemplariesDto->add($productExemplaryDto);
-            $productExemplaryDto->setProductDto($this);
-        }
-
-        return $this;
-    }
-
-    public function removeproductExemplaryDto(ProductExemplaryDto $productExemplaryDto): static
-    {
-        if ($this->productExemplariesDto->removeElement($productExemplaryDto)) {
-            // set the owning side to null (unless already changed)
-            if ($productExemplaryDto->getProductDto() === $this) {
-                $productExemplaryDto->setProductDto(null);
-            }
-        }
+        $this->productExemplariesDto = $productExemplariesDto;
 
         return $this;
     }

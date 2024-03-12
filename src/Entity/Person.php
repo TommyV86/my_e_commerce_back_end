@@ -176,6 +176,19 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->comments;
     }
 
+    
+    /**
+     * Set the value of comments
+     *
+     * @return  self
+     */ 
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
     public function addComment(Comment $comment): static
     {
         if (!$this->comments->contains($comment)) {
@@ -204,6 +217,18 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     public function getBookings(): Collection
     {
         return $this->bookings;
+    }
+
+    /**
+     * Set the value of bookings
+     *
+     * @return  self
+     */ 
+    public function setBookings($bookings)
+    {
+        $this->bookings = $bookings;
+
+        return $this;
     }
 
     public function addBooking(Booking $booking): static
@@ -269,5 +294,4 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 }

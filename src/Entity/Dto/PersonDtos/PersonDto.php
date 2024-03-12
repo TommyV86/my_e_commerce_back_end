@@ -3,6 +3,8 @@
 namespace App\Entity\Dto\PersonDtos;
 
 use App\Entity\Dto\AddressDtos\AddressDto;
+use App\Entity\Dto\CommentDtos\CommentDto;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
@@ -12,6 +14,9 @@ class PersonDto {
     #[SerializedName("_id")]
     private ?int $id = null;
 
+    #[SerializedName("_firstname")]
+    private ?string $firstname = null;
+
     #[SerializedName("_lastname")]
     private ?string $lastname = null;
 
@@ -20,6 +25,13 @@ class PersonDto {
 
     #[SerializedName("_address")]
     private ?AddressDto $addressDto = null;
+
+    #[SerializedName("_comments")]
+    private Collection $commentsDto;
+
+    #[SerializedName("_bookings")]
+    private Collection $bookingsDto;
+
 
 
     
@@ -42,6 +54,49 @@ class PersonDto {
 
         return $this;
     }
+
+
+    /**
+     * Get the value of commentsDto
+     */ 
+    public function getCommentsDto() : ?Collection
+    {
+        return $this->commentsDto;
+    }
+
+    /**
+     * Set the value of commentsDto
+     *
+     * @return  self
+     */ 
+    public function setCommentsDto($commentsDto) : self
+    {
+        $this->commentsDto = $commentsDto;
+
+        return $this;
+    }
+    
+
+    /**
+     * Get the value of bookingsDto
+     */ 
+    public function getBookingsDto()
+    {
+        return $this->bookingsDto;
+    }
+
+    /**
+     * Set the value of bookingsDto
+     *
+     * @return  self
+     */ 
+    public function setBookingsDto($bookingsDto)
+    {
+        $this->bookingsDto = $bookingsDto;
+
+        return $this;
+    }
+
 
 
     /**
@@ -100,6 +155,26 @@ class PersonDto {
     public function setEmail(?string $email)
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of firstname
+     */ 
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Set the value of firstname
+     *
+     * @return  self
+     */ 
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
 
         return $this;
     }

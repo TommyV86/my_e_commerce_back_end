@@ -59,6 +59,19 @@ class Cart
         return $this->productExemplaries;
     }
 
+    
+    /**
+     * Set the value of productExemplaries
+     *
+     * @return  self
+     */ 
+    public function setProductExemplaries($productExemplaries) : self
+    {
+        $this->productExemplaries = $productExemplaries;
+
+        return $this;
+    }
+
     public function addProductExemplary(ProductExemplary $productExemplary): static
     {
         if (!$this->productExemplaries->contains($productExemplary)) {

@@ -31,24 +31,14 @@ class CartDto {
         return $this->productExemplariesDto;
     }
 
-    public function addProductExemplaryDto(ProductExemplaryDto $productExemplaryDto): static
+    /**
+     * Set the value of productExemplariesDto
+     *
+     * @return  self
+     */ 
+    public function setProductExemplariesDto($productExemplariesDto) : self
     {
-        if (!$this->productExemplariesDto->contains($productExemplaryDto)) {
-            $this->productExemplariesDto->add($productExemplaryDto);
-            $productExemplaryDto->setCartDto($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProductExemplaryDto(ProductExemplaryDto $productExemplaryDto): static
-    {
-        if ($this->productExemplariesDto->removeElement($productExemplaryDto)) {
-            // set the owning side to null (unless already changed)
-            if ($productExemplaryDto->getCartDto() === $this) {
-                $productExemplaryDto->setCartDto(null);
-            }
-        }
+        $this->productExemplariesDto = $productExemplariesDto;
 
         return $this;
     }
