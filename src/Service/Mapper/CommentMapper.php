@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Mapper;
+namespace App\Service\Mapper;
 
 use App\Entity\Comment;
 use App\Entity\Dto\CommentDtos\CommentDto;

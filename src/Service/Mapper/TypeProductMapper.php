@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Mapper;
+namespace App\Service\Mapper;
 
 use App\Entity\Dto\TypeProductDtos\TypeProductDto;
 use App\Entity\TypeProduct;
