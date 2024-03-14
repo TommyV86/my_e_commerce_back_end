@@ -12,7 +12,7 @@ class AddressMapper {
         $address = new Address();
         $address->setStreet($addressDto->getStreet())
                 ->setNumber($addressDto->getNumber())
-                ->setTown($address->getTown());
+                ->setTown($addressDto->getTown());
 
         return $address;
     }

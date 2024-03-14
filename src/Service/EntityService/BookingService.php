@@ -15,9 +15,9 @@ use DateTime;
 
 class BookingService {
 
-    private $serializer;
-    private $bookingMapper;
-    private $entityManager;
+    private SerializerInterface $serializer;
+    private BookingMapper $bookingMapper;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(
         SerializerInterface $serializer,

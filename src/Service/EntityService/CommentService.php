@@ -11,8 +11,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class CommentService {
 
-    private $entityManager;
-    private $serializer;
+    private EntityManagerInterface $entityManager;
+    private SerializerInterface $serializer;
 
     public function __construct(
         EntityManagerInterface $entityManager,

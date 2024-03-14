@@ -7,16 +7,6 @@ use App\Entity\ProductExemplary;
 
 class ProductExemplaryMapper {
 
-    private $productMapper;
-
-    public function __construct(
-        ProductMapper $productMapper
-    )
-    {
-        $this->productMapper = $productMapper;
-    }
-
-
     public function toEntity(ProductExemplaryDto $productExemplaryDto) : ProductExemplary {
 
         $productExemplary = new ProductExemplary();

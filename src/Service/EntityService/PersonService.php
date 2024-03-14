@@ -2,29 +2,31 @@
 
 namespace App\Service\EntityService;
 
+use App\Entity\Dto\PersonDtos\PersonDto;
 use App\Entity\Person;
+use App\Service\Mapper\PersonMapper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
-use App\Repository\PersonRepository;
-
-
 
 class PersonService {
 
-    private $serializer;
-    private $userHashPassword;
-    private $entityManager;
+    private SerializerInterface $serializer;
+    private PersonMapper $personMapper;
+    private UserPasswordHasherInterface $userHashPassword;
+    private EntityManagerInterface $entityManager;
 
 
     public function __construct(
         SerializerInterface $serializer,
+        PersonMapper $personMapper,
         UserPasswordHasherInterface $userHashPassword,
         EntityManagerInterface $entityManager
     ){
         $this->serializer = $serializer;
+        $this->personMapper = $personMapper;
         $this->userHashPassword = $userHashPassword;
         $this->entityManager = $entityManager;
     }
@@ -34,7 +36,9 @@ class PersonService {
         if($request === null) return false;
 
         $data = $request->getContent();
-        $person = $this->serializer->deserialize($data, Person::class, "json");
+        $personDto = $this->serializer->deserialize($data, PersonDto::class, 'json');
+        $person = $this->personMapper->toEntity($personDto);
+        echo $person->getFirstname();
 
         $person->setPassword(
             $this->userHashPassword->hashPassword(

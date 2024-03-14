@@ -3,8 +3,10 @@
 namespace App\Service\EntityService;
 
 use App\Entity\Cart;
+use App\Entity\Product;
 use App\Entity\ProductExemplary;
 use App\Repository\CartRepository;
+use App\Service\Mapper\ProductExemplaryMapper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -13,15 +15,18 @@ use Doctrine\ORM\EntityManagerInterface;
 class ProductExemplaryService 
 {
 
-    private $serializer;
-    private $entityManager;
+    private SerializerInterface $serializer;
+    private EntityManagerInterface $entityManager;
+    private ProductExemplaryMapper $prodExMapper;
 
     public function __construct(
         SerializerInterface $serializer,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        ProductExemplaryMapper $prodExMapper
     ){
         $this->serializer = $serializer;
         $this->entityManager = $entityManager;
+        $this->prodExMapper = $prodExMapper;
     }
 
     public function save(Request $request) : bool {
@@ -56,5 +61,4 @@ class ProductExemplaryService
 
         return $prodExs === null ? false : true;
     }
-
 }

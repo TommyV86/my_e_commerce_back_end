@@ -100,4 +100,11 @@ class AddressDto {
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getStreet()
+               .$this->getNumber()
+               .$this->getTown();
+    }
 }

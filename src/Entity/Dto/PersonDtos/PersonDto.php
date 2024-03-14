@@ -22,6 +22,9 @@ class PersonDto {
 
     #[SerializedName("_email")]
     private ?string $email = null;
+    
+    #[SerializedName("_password")]
+    private ?string $password= null;
 
     #[SerializedName("_address")]
     private ?AddressDto $addressDto = null;
@@ -177,5 +180,33 @@ class PersonDto {
         $this->firstname = $firstname;
 
         return $this;
+    }
+
+
+    
+    /**
+     * Get the value of password
+     */ 
+    public function getPassword() : ?string
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @return  self
+     */ 
+    public function setPassword($password) : self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getEmail()
+              .$this->getAddressDto();
     }
 }

@@ -8,9 +8,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class CartMapper {
 
-    private $productExemplaryMapper;
-    private $personMapper;
-    private $bookingMapper;
+    private ProductExemplaryMapper $productExemplaryMapper;
+    private PersonMapper $personMapper;
+    private BookingMapper $bookingMapper;
 
     public function __construct(
         ProductExemplaryMapper $productExemplaryMapper,

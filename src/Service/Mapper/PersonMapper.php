@@ -9,9 +9,9 @@ use Doctrine\Common\Collections\Collection;
 
 class PersonMapper {
 
-    private $addressMapper;
-    private $commentMapper;
-    private $bookingMapper;
+    private AddressMapper $addressMapper;
+    private CommentMapper $commentMapper;
+    private BookingMapper $bookingMapper;
 
     public function __construct(
         AddressMapper $addressMapper,
@@ -26,14 +26,11 @@ class PersonMapper {
     public function toEntity(PersonDto $personDto) : Person {
 
         $person = new Person();
-        $address = $this->addressMapper->toEntity($personDto->getAddressDto());
 
         $person->setFirstname($personDto->getFirstname())
                ->setLastname($personDto->getLastname())
                ->setEmail($personDto->getEmail())
-               ->setAddress($address)
-               ->setComments($this->commentsToEntity($personDto->getCommentsDto()))
-               ->setBookings($this->bookingsToEntity($personDto->getBookingsDto()));
+               ->setPassword($personDto->getPassword());
         return $person;
     }
 

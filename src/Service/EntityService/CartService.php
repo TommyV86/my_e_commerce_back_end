@@ -11,8 +11,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class CartService {
 
-    private $serializer;
-    private $entityManager;
+    private SerializerInterface $serializer;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(
         SerializerInterface $serializer,
