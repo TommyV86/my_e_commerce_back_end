@@ -23,6 +23,7 @@ class ProductMapper {
         $typeProd = $this->typeProdMapper->toEntity($productDto->getTypeProductDto());
 
         $product->setName($productDto->getName())
+                ->setPrice($productDto->getPrice())
                 ->setDescription($productDto->getDescription())
                 ->setTypeProduct($typeProd);
 
@@ -35,6 +36,7 @@ class ProductMapper {
         $typeProdDto = $this->typeProdMapper->toDto($product->getTypeProduct());
 
         $productDto->setName($product->getName())
+                   ->setPrice($product->getPrice())
                    ->setDescription($product->getDescription())
                    ->setTypeProductDto($typeProdDto);
         return $productDto;

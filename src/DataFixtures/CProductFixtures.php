@@ -125,7 +125,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
         );
         $products->get(9)->setPrice(1);
 
-        $products->get(10)->setName('boeuf bourgignon');
+        $products->get(10)->setName('boeuf bourguignon');
         $products->get(10)->setTypeProduct($viandeType);
         $products->get(10)->setDescription(
             'Le bœuf bourguignon est un véritable incontournable du terroir français !
@@ -161,7 +161,7 @@ class CProductFixtures extends Fixture implements FixtureGroupInterface
         ');
         $products->get(13)->setPrice(6.23);
         
-        $products->get(14)->setName('saucisse');
+        $products->get(14)->setName('saucisses');
         $products->get(14)->setTypeProduct($viandeType);
         $products->get(14)->setDescription(
             'Une saucisse est un produit de charcuterie 

@@ -2,6 +2,7 @@
 
 namespace App\Service\EntityService;
 
+use App\Entity\Dto\ProductDtos\ProductDto;
 use App\Entity\Product;
 use App\Service\Mapper\ProductMapper;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -35,5 +36,13 @@ class ProductService {
 
         return $prodsDto;
     } 
+
+    public function getOneByName(string $name) : ProductDto {
+
+        $prod = $this->entityManager->getRepository(Product::class)->findOneByName($name);
+        $prodDto = $this->prodMapper->toDto($prod);
+        
+        return $prodDto;
+    }
 }
 
