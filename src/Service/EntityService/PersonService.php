@@ -38,7 +38,6 @@ class PersonService {
         $data = $request->getContent();
         $personDto = $this->serializer->deserialize($data, PersonDto::class, 'json');
         $person = $this->personMapper->toEntity($personDto);
-        echo $person->getFirstname();
 
         $person->setPassword(
             $this->userHashPassword->hashPassword(
