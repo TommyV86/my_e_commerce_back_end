@@ -7,7 +7,7 @@ use App\Entity\Dto\BookingDtos\BookingDto;
 
 class BookingMapper {
 
-    public function toEntity(BookingDto $bookingDto) : Booking {
+    public function toEntity(?BookingDto $bookingDto) : Booking {
 
         $booking = new Booking();
         $booking->setPerson($bookingDto->getPersonDto())
