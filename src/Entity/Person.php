@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: PersonRepository::class)]
 class Person implements UserInterface, PasswordAuthenticatedUserInterface
@@ -38,6 +39,9 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'person')]
     private Collection $bookings;
 
+    #[ORM\OneToMany(targetEntity: Cart::class, mappedBy: 'person')]
+    private Collection $carts;
+
     #[ORM\ManyToOne]
     private ?Role $role = null;
 
@@ -49,8 +53,6 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(targetEntity: Cart::class, mappedBy: 'person')]
-    private Collection $carts;
 
     
     public function __construct()
@@ -260,38 +262,35 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->getFirstname(); 
-    }
 
-    /**
-     * @return Collection<int, Cart>
-     */
-    public function getCarts(): Collection
-    {
-        return $this->carts;
-    }
 
-    public function addCart(Cart $cart): static
-    {
-        if (!$this->carts->contains($cart)) {
-            $this->carts->add($cart);
-            $cart->setPerson($this);
-        }
+    // /**
+    //  * @return Collection<int, Cart>
+    //  */
+    // public function getCarts(): Collection
+    // {
+    //     return $this->carts;
+    // }
 
-        return $this;
-    }
+    // public function addCart(Cart $cart): static
+    // {
+    //     if (!$this->carts->contains($cart)) {
+    //         $this->carts->add($cart);
+    //         $cart->setPerson($this);
+    //     }
 
-    public function removeCart(Cart $cart): static
-    {
-        if ($this->carts->removeElement($cart)) {
-            // set the owning side to null (unless already changed)
-            if ($cart->getPerson() === $this) {
-                $cart->setPerson(null);
-            }
-        }
+    //     return $this;
+    // }
 
-        return $this;
-    }
+    // public function removeCart(Cart $cart): static
+    // {
+    //     if ($this->carts->removeElement($cart)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($cart->getPerson() === $this) {
+    //             $cart->setPerson(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
 }

@@ -6,6 +6,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class JWTAuthenticationSuccessSubscriber implements EventSubscriberInterface
 {
@@ -42,6 +43,5 @@ class JWTAuthenticationSuccessSubscriber implements EventSubscriberInterface
 
         // Ajouter le cookie à l'objet Response
         $this->response->headers->setCookie($this->cookie);
-        $event->setData($this->data);
     }
 }

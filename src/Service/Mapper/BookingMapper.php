@@ -10,10 +10,6 @@ class BookingMapper {
     public function toEntity(?BookingDto $bookingDto) : Booking {
 
         $booking = new Booking();
-        $booking->setPerson($bookingDto->getPersonDto())
-                ->setStatus($bookingDto->getStatus())
-                ->setCart($bookingDto->getCartDto())
-                ->setPerson($bookingDto->getPersonDto());
         return $booking;
     }
 

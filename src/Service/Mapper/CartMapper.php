@@ -26,10 +26,7 @@ class CartMapper {
     public function toEntity(CartDto $cartDto) : Cart {
 
         $cart = new Cart();
-        $cart->setTotalSum($cartDto->getTotal_sum())
-             ->setPerson($this->personMapper->toEntity($cartDto->getPersonDto()))
-             ->setBooking($this->bookingMapper->toEntity($cartDto->getBookingDto()))
-             ->setProductExemplaries($this->productExemplariesToEntity($cartDto->getProductExemplariesDto()));
+        $cart->setTotalSum($cartDto->getTotal_sum());
         
         return $cart;
     }

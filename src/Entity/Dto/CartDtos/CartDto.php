@@ -7,15 +7,21 @@ use App\Entity\Dto\PersonDtos\PersonDto;
 use App\Entity\Dto\ProductExemplaryDtos\ProductExemplaryDto;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
+#[Groups("visible")]
 class CartDto {
     
     private Collection $productExemplariesDto;
 
+    #[SerializedName("_person")]
     private ?PersonDto $personDto = null;
 
+    #[SerializedName("_booking")]
     private ?BookingDto $bookingDto = null;
 
+    #[SerializedName("_totalSum")]
     private ?float $total_sum = null;
 
     public function __construct()
@@ -96,7 +102,7 @@ class CartDto {
      *
      * @return  self
      */ 
-    public function setTotal_sum($total_sum) : self
+    public function setTotal_sum($total_sum) : static
     {
         $this->total_sum = $total_sum;
 

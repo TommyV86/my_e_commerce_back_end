@@ -21,7 +21,7 @@ class PersonDto {
     private ?string $lastname = null;
 
     #[SerializedName("_email")]
-    private ?string $email = null;
+    private string $email = '';
     
     #[SerializedName("_password")]
     private ?string $password= null;
@@ -34,6 +34,9 @@ class PersonDto {
 
     #[SerializedName("_bookings")]
     private Collection $bookingsDto;
+
+    #[SerializedName("_token")]
+    private mixed $token = null;
 
 
 
@@ -145,7 +148,7 @@ class PersonDto {
     /**
      * Get the value of email
      */ 
-    public function getEmail() : ?string
+    public function getEmail() : string
     {
         return $this->email;
     }
@@ -208,5 +211,25 @@ class PersonDto {
     {
         return $this->getEmail()
               .$this->getAddressDto();
+    }
+
+    /**
+     * Get the value of token
+     */ 
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * Set the value of token
+     *
+     * @return  self
+     */ 
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
     }
 }
