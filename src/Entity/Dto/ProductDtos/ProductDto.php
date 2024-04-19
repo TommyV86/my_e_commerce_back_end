@@ -27,6 +27,9 @@ class ProductDto {
     #[SerializedName("_typeProduct")]
     private ?TypeProductDto $typeProductDto = null;
 
+    #[SerializedName("_quantity")]
+    private ?int $quantity = null;
+
 
     public function __construct()
     {
@@ -131,6 +134,26 @@ class ProductDto {
     public function setTypeProductDto(?TypeProductDto $typeProductDto) : self
     {
         $this->typeProductDto = $typeProductDto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of quantity
+     */ 
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * Set the value of quantity
+     *
+     * @return  self
+     */ 
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }

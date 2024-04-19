@@ -25,7 +25,8 @@ class ProductMapper {
         $product->setName($productDto->getName())
                 ->setPrice($productDto->getPrice())
                 ->setDescription($productDto->getDescription())
-                ->setTypeProduct($typeProd);
+                ->setTypeProduct($typeProd)
+                ->setQuantity($productDto->getQuantity());
 
         return $product;
     }

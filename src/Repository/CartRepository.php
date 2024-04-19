@@ -45,4 +45,18 @@ class CartRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    
+    /**
+     * Find the last cart.
+     *
+     * @return Cart|null
+     */
+    public function findLastCart(): ?Cart
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

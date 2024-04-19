@@ -30,6 +30,8 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?float $price = null;
 
+    private ?int $quantity = null;
+
     public function __construct()
     {
         $this->productExemplaries = new ArrayCollection();
@@ -128,6 +130,26 @@ class Product
     public function setPrice(?float $price): static
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of quantity
+     */ 
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * Set the value of quantity
+     *
+     * @return  self
+     */ 
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }

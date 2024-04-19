@@ -4,6 +4,7 @@ namespace App\Entity\Dto\CartDtos;
 
 use App\Entity\Dto\BookingDtos\BookingDto;
 use App\Entity\Dto\PersonDtos\PersonDto;
+use App\Entity\Dto\ProductDtos\ProductDto;
 use App\Entity\Dto\ProductExemplaryDtos\ProductExemplaryDto;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,7 +14,8 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[Groups("visible")]
 class CartDto {
     
-    private Collection $productExemplariesDto;
+    #[SerializedName("_products")]
+    private Collection $productsDto;
 
     #[SerializedName("_person")]
     private ?PersonDto $personDto = null;
@@ -26,15 +28,15 @@ class CartDto {
 
     public function __construct()
     {
-        $this->productExemplariesDto = new ArrayCollection();
+        $this->productsDto = new ArrayCollection();
     }
 
     /**
-     * @return Collection<int, ProductExemplaryDto>
+     * @return Collection<int, ProductDto>
      */
-    public function getProductExemplariesDto(): Collection
+    public function getProductsDto(): Collection
     {
-        return $this->productExemplariesDto;
+        return $this->productsDto;
     }
 
     /**
@@ -42,9 +44,9 @@ class CartDto {
      *
      * @return  self
      */ 
-    public function setProductExemplariesDto($productExemplariesDto) : self
+    public function setProductsDto(ProductDto $productsDto) : self
     {
-        $this->productExemplariesDto = $productExemplariesDto;
+        $this->productsDto = $productsDto;
 
         return $this;
     }

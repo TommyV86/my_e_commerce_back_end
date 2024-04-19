@@ -23,7 +23,6 @@ class ProductExemplaryController extends AbstractController
         $this->productExemplaryService = $productExemplaryService;
     }
 
-    #[IsGranted('ROLE_USER', message: 'Vous n\'avez pas les droits suffisants')]
     #[Route('/profile/confirm_product_exemplary_in_cart', name: 'app_product_exemplary', methods: ['POST'])]
     public function index(Request $request): JsonResponse
     {
@@ -33,6 +32,7 @@ class ProductExemplaryController extends AbstractController
         $this->isSaved = $this->productExemplaryService->save($request);
         $this->message = $this->isSaved ? 'prod ex with cart are registered successfully!' : 'error in the server';
         
-        return $this->json(['message' => $this->message]);
+        return $this->json(['pord ex controller' => $this->message]);
+
     }
 }

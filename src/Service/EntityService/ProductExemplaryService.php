@@ -3,30 +3,41 @@
 namespace App\Service\EntityService;
 
 use App\Entity\Cart;
+use App\Entity\Person;
 use App\Entity\Product;
 use App\Entity\ProductExemplary;
-use App\Repository\CartRepository;
-use App\Service\Mapper\ProductExemplaryMapper;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Utility\CheckRole;
+use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
 class ProductExemplaryService 
 {
 
     private SerializerInterface $serializer;
     private EntityManagerInterface $entityManager;
-    private ProductExemplaryMapper $prodExMapper;
+    private CheckRole $checkRole;
+
+
+    private Person $person;
+    private mixed $data;
+    private array $cartArray;
+    private EntityRepository $productManager;
+    private EntityRepository $cartManager;
 
     public function __construct(
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
-        ProductExemplaryMapper $prodExMapper
+        CheckRole $checkRole,
+
+        
     ){
         $this->serializer = $serializer;
         $this->entityManager = $entityManager;
-        $this->prodExMapper = $prodExMapper;
+        $this->checkRole = $checkRole;
+
     }
 
     public function save(Request $request) : bool {
@@ -34,31 +45,40 @@ class ProductExemplaryService
         //deserialisation lorsque le front sera developpé
         //à réadapter pour le front, ajouter une vérification via le role
 
-        $data = $request->getContent();
-        $datasIntoArray = json_decode($data, true);
+        $this->data = $request->getContent();
+        $this->cartArray = json_decode($this->data, true);
 
-        $idCart = (int) $datasIntoArray['id'];
-        $cart = $this->entityManager->getRepository(Cart::class)->find($idCart);
+        if(!$this->checkRole->isRoleUser($this->serializer, $this->entityManager, $this->cartArray)){ 
+            return false;
+        } else {
+            $this->person = $this->checkRole->isRoleUser($this->serializer, $this->entityManager, $this->cartArray);
+        };
 
-        $prodExs = new ArrayCollection();
+        //récupérer depuis la data cartDto
+        //ensuite persister tous les prod exs contenus dans cart
 
-        $prodExs->add($datasIntoArray['productExemplary']);
-        $prodExs->add($datasIntoArray['productExemplary']);
-        $prodExs->add($datasIntoArray['productExemplary']);
+        $this->productManager = $this->entityManager->getRepository(Product::class);
+        $this->cartManager = $this->entityManager->getRepository(Cart::class);
 
-        //boucler dans la collection et persister chaque prod ex
+        foreach ($this->cartArray['_products'] as $prodDto) {
 
-        foreach ($prodExs as $prodEx) {
+            //find prod by name
+            $prodFromDb = $this->productManager->findOneByName($prodDto['_name']);
+            //find last cart
+            $lastCartFromDb = $this->cartManager->findLastCart(); 
+             
             
-            $prodEx = $this->serializer->deserialize($data, ProductExemplary::class, "json");
-            $prodEx->setCart($cart);
+            $prodEx = new ProductExemplary();
+            $prodEx->setQuantity($prodDto['_quantity'])
+                    ->setDatePurchase(new DateTime('now'))
+                    ->setProduct($prodFromDb)
+                    ->setCart($lastCartFromDb)
+                    ->setImageName($prodFromDb->getName());
 
             $this->entityManager->persist($prodEx);
         }
-        
-        //$this->entityManager->persist();
-        $this->entityManager->flush();
+        $this->entityManager->flush();      
 
-        return $prodExs === null ? false : true;
+        return true;
     }
 }

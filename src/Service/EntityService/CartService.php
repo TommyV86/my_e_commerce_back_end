@@ -4,10 +4,10 @@ namespace App\Service\EntityService;
 
 use App\Entity\Cart;
 use App\Entity\Dto\CartDtos\CartDto;
-use App\Entity\Dto\PersonDtos\PersonDto;
 use App\Entity\Person;
 use App\Service\Mapper\CartMapper;
 use App\Service\Mapper\PersonMapper;
+use App\Utility\CheckRole;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,11 +17,11 @@ class CartService {
 
     private SerializerInterface $serializer;
     private EntityManagerInterface $entityManager;
+    private CheckRole $checkRole;
+
     private CartMapper $cartMapper;
-    private PersonMapper $personMapper;
     private CartDto $cartDto;
     private Cart $cart;
-    private PersonDto $personDto;
     private Person $person;
     private mixed $data;
     private array $dataArray;
@@ -31,13 +31,14 @@ class CartService {
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
         CartMapper $cartMapper,
-        PersonMapper $personMapper
+        PersonMapper $personMapper,
+        CheckRole $checkRole
 
     ){
         $this->serializer = $serializer;
         $this->entityManager = $entityManager;
         $this->cartMapper = $cartMapper;
-        $this->personMapper = $personMapper;
+        $this->checkRole = $checkRole;
     }
 
     public function save(Request $request) : mixed {
@@ -46,12 +47,12 @@ class CartService {
         $this->dataArray = json_decode($this->data, true);
         $this->sum = $this->dataArray['_totalSum'];
         
-        //verification du role
-        $this->personDto = $this->serializer->deserialize(json_encode($this->dataArray['_person'] ), PersonDto::class, "json");        
-        $this->person = $this->entityManager->getRepository(Person::class)->findOneByEmail($this->personDto->getEmail());
-        foreach ($this->person->getRoles() as $r) {
-            if($r != 'ROLE_USER') return false;
-        }
+        if(!$this->checkRole->isRoleUser($this->serializer, $this->entityManager, $this->dataArray)){ 
+            return false;
+        } else {
+            $this->person = $this->checkRole->isRoleUser($this->serializer, $this->entityManager, $this->dataArray);
+        };
+
         
         $this->cartDto = $this->serializer->deserialize($this->data, CartDto::class, "json");
         $this->cart = $this->cartMapper->toEntity($this->cartDto); 

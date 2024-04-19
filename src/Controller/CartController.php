@@ -57,9 +57,9 @@ class CartController extends AbstractController
         //puis le controller de ProductEx sera sollicité pour persister 
         //les prod ex avec le panier persisté avant
 
-        //$this->isSaved = $this->cartService->save($request);
-        //$this->message = $this->isSaved ? 'cart registered successfully!' : 'error in the server';
+        $this->isSaved = $this->cartService->save($request);
+        $this->message = $this->isSaved ? 'cart registered successfully!' : 'error in the server';
         
-        return $this->json(['message' => $this->cartService->save($request)]);
+        return $this->json(['cart controller' => $this->message]);
     }
 }

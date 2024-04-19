@@ -23,13 +23,10 @@
 11-créer les controllers booking, comment
 12 - dto à mettre en place lorsque le front sera prêt
 13 - mapper à établir pour chaque dto
-
-
-
-
 14- réadapter les services avec les dto :
 -booking ok
 -person ok
 -product ok
 
--réadaptation du service cart en cours
+-réadaptation du service cart en cours - ok
+-service pour persister Product Exemplary - ok
