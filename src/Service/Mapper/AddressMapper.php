@@ -7,22 +7,22 @@ use App\Entity\Dto\AddressDtos\AddressDto;
 
 class AddressMapper {
 
-    public function toEntity(AddressDto $addressDto) : Address {
+    public function toEntity(?AddressDto $addressDto) : Address {
 
         $address = new Address();
-        $address->setStreet($addressDto->getStreet())
-                ->setNumber($addressDto->getNumber())
-                ->setTown($addressDto->getTown());
+        $address->setStreet($addressDto?->getStreet())
+                ->setNumber($addressDto?->getNumber())
+                ->setTown($addressDto?->getTown());
 
         return $address;
     }
 
-    public function toDto(Address $address) : AddressDto {
+    public function toDto(?Address $address) : AddressDto {
 
         $addressDto = new AddressDto();
-        $addressDto->setStreet($address->getStreet())
-                   ->setNumber($address->getNumber())
-                   ->setTown($address->getTown());
+        $addressDto->setStreet($address?->getStreet())
+                   ->setNumber($address?->getNumber())
+                   ->setTown($address?->getTown());
 
         return $addressDto;
     }

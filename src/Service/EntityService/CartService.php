@@ -8,6 +8,7 @@ use App\Entity\Person;
 use App\Service\Mapper\CartMapper;
 use App\Service\Mapper\PersonMapper;
 use App\Utility\CheckRole;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -64,6 +65,19 @@ class CartService {
         $this->entityManager->flush();
 
         return $this->data;
+    }
+
+    public function findAllByidClient(Request $request) : ArrayCollection {
+
+        $id = $request->query->getInt("id");
+        $carts = $this->entityManager->getRepository(Cart::class)->findAllByidClient($id);
+
+        $cartDtos = new ArrayCollection();
+        foreach ($carts as $c) {
+            $cartDtos->add($this->cartMapper->toDto($c));
+        }
+
+        return $cartDtos;
     }
 
 }

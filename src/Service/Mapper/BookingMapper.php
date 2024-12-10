@@ -13,13 +13,13 @@ class BookingMapper {
         return $booking;
     }
 
-    public function toDto(Booking $booking) : BookingDto {
+    public function toDto(?Booking $booking) : BookingDto {
 
         $bookingDto = new BookingDto();
-        $bookingDto->setPersonDto($booking->getPerson())
-                   ->setStatus($booking->isStatus())
-                   ->setCartDto($booking->getCart())
-                   ->setPersonDto($booking->getPerson());
+        $bookingDto->setPersonDto($booking?->getPerson())
+                   ->setStatus($booking?->isStatus())
+                   ->setCartDto($booking?->getCart())
+                   ->setPersonDto($booking?->getPerson());
         return $bookingDto;
     }
 }

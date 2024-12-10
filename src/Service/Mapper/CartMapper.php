@@ -26,7 +26,7 @@ class CartMapper {
     public function toEntity(CartDto $cartDto) : Cart {
 
         $cart = new Cart();
-        $cart->setTotalSum($cartDto->getTotal_sum());
+        $cart->setTotalSum($cartDto->getTotalSum());
         
         return $cart;
     }
@@ -34,7 +34,7 @@ class CartMapper {
     public function toDto(Cart $cart) : CartDto {
 
         $cartDto = new CartDto();
-        $cartDto->setTotal_sum($cart->getTotalSum())
+        $cartDto->setTotalSum($cart->getTotalSum())
                 ->setPersonDto($this->personMapper->toDto($cart->getPerson()))
                 ->setBookingDto($this->bookingMapper->toDto($cart->getBooking()))
                 ->setProductExemplariesDto($this->productExemplariesToDto($cart->getProductExemplaries()));

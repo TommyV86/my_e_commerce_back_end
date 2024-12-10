@@ -94,7 +94,7 @@ class CartDto {
     /**
      * Get the value of total_sum
      */ 
-    public function getTotal_sum() : ?float
+    public function getTotalSum() : ?float
     {
         return $this->total_sum;
     }
@@ -104,9 +104,16 @@ class CartDto {
      *
      * @return  self
      */ 
-    public function setTotal_sum($total_sum) : static
+    public function setTotalSum($total_sum) : static
     {
         $this->total_sum = $total_sum;
+
+        return $this;
+    }
+
+    public function setProductExemplariesDto(ArrayCollection $productsExDto) : self
+    {
+        $this->productsDto = $productsExDto;
 
         return $this;
     }

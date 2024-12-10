@@ -62,4 +62,10 @@ class CartController extends AbstractController
         
         return $this->json(['cart controller' => $this->message]);
     }
+
+    #[Route('/profile/get_all_by_id', name: 'app_cart_all', methods: ['GET'])]
+    public function getAll(Request $request): JsonResponse
+    {
+        return $this->json($this->cartService->findAllByidClient($request));
+    }
 }

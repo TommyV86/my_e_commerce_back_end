@@ -109,7 +109,7 @@ class BookingDto {
     /**
      * Get the value of date_booking
      */ 
-    public function getDate_booking() : ?\DateTimeInterface
+    public function getDateBooking() : ?\DateTimeInterface
     {
         return $this->date_booking;
     }
@@ -119,7 +119,7 @@ class BookingDto {
      *
      * @return  self
      */ 
-    public function setDate_booking(?\DateTimeInterface $date_booking) : self
+    public function setDateBooking(?\DateTimeInterface $date_booking) : self
     {
         $this->date_booking = $date_booking;
 

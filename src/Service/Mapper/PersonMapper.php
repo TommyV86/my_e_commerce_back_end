@@ -51,7 +51,7 @@ class PersonMapper {
 
     //mapper comment, booking collections functions 
 
-    private function commentsToDto($comments) : ArrayCollection {
+    private function commentsToDto($comments) : mixed {
 
         $commentsDto = new ArrayCollection();
         foreach ($comments as $com) {
