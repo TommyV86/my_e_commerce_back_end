@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[Groups("visible")]
 class CartDto {
     
-    #[SerializedName("_products")]
+    #[SerializedName("_productExemplaries")]
     private Collection $productsDto;
 
     #[SerializedName("_person")]
@@ -24,7 +24,7 @@ class CartDto {
     private ?BookingDto $bookingDto = null;
 
     #[SerializedName("_totalSum")]
-    private ?float $total_sum = null;
+    private ?float $_total_sum = null;
 
     public function __construct()
     {
@@ -96,7 +96,7 @@ class CartDto {
      */ 
     public function getTotalSum() : ?float
     {
-        return $this->total_sum;
+        return $this->_total_sum;
     }
 
     /**
@@ -106,7 +106,7 @@ class CartDto {
      */ 
     public function setTotalSum($total_sum) : static
     {
-        $this->total_sum = $total_sum;
+        $this->_total_sum = $total_sum;
 
         return $this;
     }
