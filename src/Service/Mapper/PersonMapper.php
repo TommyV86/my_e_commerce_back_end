@@ -39,7 +39,8 @@ class PersonMapper {
         $personDto = new PersonDto();
         $addressDto = $this->addressMapper->toDto($person->getAddress());
 
-        $personDto->setFirstname($person->getFirstname())
+        $personDto->setId($person->getId())
+                  ->setFirstname($person->getFirstname())
                   ->setLastname($person->getLastname())
                   ->setEmail($person->getEmail())
                   ->setAddressDto($addressDto)
