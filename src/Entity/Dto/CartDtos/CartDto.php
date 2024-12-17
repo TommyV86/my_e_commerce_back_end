@@ -24,7 +24,7 @@ class CartDto {
     private ?BookingDto $bookingDto = null;
 
     #[SerializedName("_totalSum")]
-    private ?float $_total_sum = null;
+    private ?float $totalSum = null;
 
     public function __construct()
     {
@@ -96,7 +96,7 @@ class CartDto {
      */ 
     public function getTotalSum() : ?float
     {
-        return $this->_total_sum;
+        return $this->totalSum;
     }
 
     /**
@@ -104,9 +104,9 @@ class CartDto {
      *
      * @return  self
      */ 
-    public function setTotalSum($total_sum) : static
+    public function setTotalSum($totalSum) : static
     {
-        $this->_total_sum = $total_sum;
+        $this->totalSum = $totalSum;
 
         return $this;
     }

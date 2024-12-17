@@ -31,27 +31,29 @@ class CartService {
     private mixed $data;
     private array $dataArray;
     private float $sum;
+    private BookingService $bookingService;
 
     public function __construct(
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
         CartMapper $cartMapper,
         PersonMapper $personMapper,
-        CheckRole $checkRole
-
+        CheckRole $checkRole,
+        BookingService $bookingService
     ){
         $this->serializer = $serializer;
         $this->entityManager = $entityManager;
         $this->cartMapper = $cartMapper;
         $this->checkRole = $checkRole;
         $this->personMapper = $personMapper;
+        $this->bookingService = $bookingService;
     }
 
     public function save(Request $request) : mixed {
 
         $this->data = $request->getContent();
         $this->dataArray = json_decode($this->data, true);
-        $this->sum = $this->dataArray['totalSum'];
+        $this->sum = $this->dataArray['_totalSum'];
         
         if(!$this->checkRole->isRoleUser($this->serializer, $this->entityManager, $this->dataArray)){ 
             return false;
@@ -92,11 +94,15 @@ class CartService {
 
         $id = $request->query->getInt("id");
         $carts = $this->entityManager->getRepository(Cart::class)->findAllByidClient($id);
+        $bookingsDto = $this->bookingService->getAllByIdClient($id);
 
         $cartDtos = new ArrayCollection();
+
         foreach ($carts as $c) {
             $cartDtos->add($this->cartMapper->toDto($c));
         }
+
+        
 
         return $cartDtos;
     }

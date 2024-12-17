@@ -18,6 +18,8 @@ class BookingMapper {
     public function toDto(?Booking $booking) : BookingDto {
 
         $bookingDto = new BookingDto();
+        $bookingDto->setDateBooking($booking->getDateBooking())
+                   ->setStatus($booking->isStatus());
         return $bookingDto;
     }
 }

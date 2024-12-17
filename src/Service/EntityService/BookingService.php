@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class BookingService {
 
@@ -55,6 +56,16 @@ class BookingService {
         return true;
     }
 
-    public function getAll() {}
+    public function getAllByIdClient(int $id) : ArrayCollection {
+
+        //creer une query findbyidclient
+        $bookings = $this->entityManager->getRepository(Booking::class)->findAllByIdClient($id);
+
+        $bookingsDto = new ArrayCollection();
+        foreach ($bookings as $b) {
+            $bookingsDto->add($this->bookingMapper->toDto($b));
+        }
+        return $bookingsDto;
+    }
 
 }

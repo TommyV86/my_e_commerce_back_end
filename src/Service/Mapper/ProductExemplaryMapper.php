@@ -7,6 +7,13 @@ use App\Entity\ProductExemplary;
 
 class ProductExemplaryMapper {
 
+    private ProductMapper $prodMapper;
+
+    public function __construct(ProductMapper $prodMapper)
+    {
+        $this->prodMapper = $prodMapper;
+    }
+
     public function toEntity(ProductExemplaryDto $productExemplaryDto) : ProductExemplary {
 
         $productExemplary = new ProductExemplary();
@@ -20,7 +27,8 @@ class ProductExemplaryMapper {
 
         $productExemplaryDto = new ProductExemplaryDto();
         $productExemplaryDto->setQuantity($productExemplary->getQuantity())
-                            ->setImageName($productExemplary->getImageName());
+                            ->setImageName($productExemplary->getImageName())
+                            ->setProductDto($this->prodMapper->toDto($productExemplary->getProduct()));
 
         return $productExemplaryDto;
     }

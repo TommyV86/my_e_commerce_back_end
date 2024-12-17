@@ -16,9 +16,7 @@ class Cart
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $total_sum = null;
-
-
+    private ?float $totalSum = null;
 
     #[ORM\OneToMany(targetEntity: ProductExemplary::class, mappedBy: 'cart')]
     private Collection $productExemplaries;
@@ -41,12 +39,12 @@ class Cart
 
     public function getTotalSum(): ?float
     {
-        return $this->total_sum;
+        return $this->totalSum;
     }
 
-    public function setTotalSum(?float $total_sum): static
+    public function setTotalSum(?float $totalSum): static
     {
-        $this->total_sum = $total_sum;
+        $this->totalSum = $totalSum;
 
         return $this;
     }

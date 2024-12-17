@@ -16,8 +16,8 @@ class BookingDto {
     #[SerializedName("_status")]
     private ?bool $status = null;
 
-    #[SerializedName("_date_booking")]
-    private ?\DateTimeInterface $date_booking = null;
+    #[SerializedName("_dateBooking")]
+    private ?\DateTimeInterface $dateBooking = null;
 
     #[SerializedName("_person")]
     private ?PersonDto $personDto = null;
@@ -111,7 +111,7 @@ class BookingDto {
      */ 
     public function getDateBooking() : ?\DateTimeInterface
     {
-        return $this->date_booking;
+        return $this->dateBooking;
     }
 
     /**
@@ -119,9 +119,9 @@ class BookingDto {
      *
      * @return  self
      */ 
-    public function setDateBooking(?\DateTimeInterface $date_booking) : self
+    public function setDateBooking(?\DateTimeInterface $dateBooking) : self
     {
-        $this->date_booking = $date_booking;
+        $this->dateBooking = $dateBooking;
 
         return $this;
     }

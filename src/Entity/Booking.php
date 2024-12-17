@@ -15,7 +15,7 @@ class Booking
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $date_booking = null;
+    private ?\DateTimeInterface $dateBooking = null;
 
     #[ORM\ManyToOne(inversedBy: 'bookings')]
     private ?Person $person = null;
@@ -33,12 +33,12 @@ class Booking
 
     public function getDateBooking(): ?\DateTimeInterface
     {
-        return $this->date_booking;
+        return $this->dateBooking;
     }
 
     public function setDateBooking(?\DateTimeInterface $date_booking): static
     {
-        $this->date_booking = $date_booking;
+        $this->dateBooking = $date_booking;
 
         return $this;
     }

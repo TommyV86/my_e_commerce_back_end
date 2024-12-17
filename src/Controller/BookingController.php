@@ -31,4 +31,11 @@ class BookingController extends AbstractController
 
         return $this->json(['message' => $this->message]);
     }
+
+    //for test 
+    // #[Route('/profile/getAllByIdClient', name: 'app_booking_all', methods: ['GET'])]
+    // public function getAllByIdClient(): JsonResponse
+    // {
+    //     return $this->json($this->bookingService->getAllByIdClient(150));
+    // }
 }
